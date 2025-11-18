@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  web:
+    image: ghcr.io/hanfried-nguegan/nvg8_replica:latest
+    container_name: nvg8-web
+    restart: always
+    ports:
+      - "8000:8000"
