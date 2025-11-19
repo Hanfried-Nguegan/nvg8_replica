@@ -18,7 +18,7 @@ pipeline {
             steps {
                 sh 'docker stop nvg8_replica || true'
                 sh 'docker rm nvg8_replica || true'
-                sh 'docker run -d --name nvg8_replica -p 3000:3000 nvg8-app'
+                sh 'docker run -d --name nvg8_replica -p 8000:8000 nvg8_replica'
             }
         }
     }
