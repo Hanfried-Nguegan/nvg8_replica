@@ -1,8 +1,6 @@
 import React from 'react'
 
-type Props = {}
-
-export default function Hero({}: Props) {
+export default function Hero() {
   return (
     <div>Hero</div>
   )
