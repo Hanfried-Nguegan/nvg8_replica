@@ -33,25 +33,7 @@ jobs:
 
       - name: Build Next.js
         run: npm run build
-
+        
+      # OPTIONAL: Remove this if you don't need docker builds
       - name: Build Docker Image
         run: docker build -t nvg8_replica .
-
-      # ------------------------------------------------------------
-      # THIS IS THE IMPORTANT PART — login with your GHCR PAT
-      # ------------------------------------------------------------
-      - name: Login to GHCR using PAT
-        run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
-
-      - name: Push Image to GHCR
-        run: |
-          owner="${{ github.repository_owner }}"
-          owner="${owner,,}"   # lowercase username
-
-          repo="$owner/nvg8_replica"
-
-          echo "Tagging image as ghcr.io/$repo:latest"
-          docker tag nvg8_replica ghcr.io/$repo:latest
-
-          echo "Pushing to ghcr.io/$repo:latest"
-          docker push ghcr.io/$repo:latest
