@@ -44,7 +44,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Push Image
+      - name: Push Image to GHCR
         run: |
-          docker tag nvg8_replica ghcr.io/${{ github.repository }}:latest
-          docker push ghcr.io/${{ github.repository }}:latest
+          repo="${GITHUB_REPOSITORY,,}"     # convert to lowercase
+          echo "Pushing to ghcr.io/$repo:latest"
+          docker tag nvg8_replica ghcr.io/$repo:latest
+          docker push ghcr.io/$repo:latest
