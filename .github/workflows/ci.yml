@@ -44,13 +44,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Push Image to GHCR
+      - name: Push Image to GHCR (user namespace)
         run: |
-          # Explicitly push to your personal namespace (NOT an org)
-          repo="ghcr.io/hanfried-nguegan/nvg8_replica:latest"
+          owner="${{ github.repository_owner }}"
+          owner="${owner,,}"   # lowercase username
 
-          echo "Tagging image as $repo"
-          docker tag nvg8_replica $repo
+          repo="users/$owner/nvg8_replica"
 
-          echo "Pushing image to $repo"
-          docker push $repo
+          echo "Tagging as ghcr.io/$repo:latest"
+          docker tag nvg8_replica ghcr.io/$repo:latest
+
+          echo "Pushing to ghcr.io/$repo:latest"
+          docker push ghcr.io/$repo:latest
