@@ -46,7 +46,11 @@ jobs:
 
       - name: Push Image to GHCR
         run: |
-          repo="${GITHUB_REPOSITORY,,}"     # convert to lowercase
-          echo "Pushing to ghcr.io/$repo:latest"
-          docker tag nvg8_replica ghcr.io/$repo:latest
-          docker push ghcr.io/$repo:latest
+          # Explicitly push to your personal namespace (NOT an org)
+          repo="ghcr.io/hanfried-nguegan/nvg8_replica:latest"
+
+          echo "Tagging image as $repo"
+          docker tag nvg8_replica $repo
+
+          echo "Pushing image to $repo"
+          docker push $repo
